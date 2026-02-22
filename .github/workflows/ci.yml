@@ -10,21 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_DB: sms_db
-          POSTGRES_USER: sms_user
-          POSTGRES_PASSWORD: sms_password
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U sms_user -d sms_db"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,15 +21,8 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Run unit tests
-        run: mvn test -Dspring.profiles.active=test -B
-
-      - name: Run all tests with DB
+      - name: Run tests
         run: mvn verify -B
-        env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/sms_db
-          SPRING_DATASOURCE_USERNAME: sms_user
-          SPRING_DATASOURCE_PASSWORD: sms_password
 
   build:
     runs-on: ubuntu-latest
