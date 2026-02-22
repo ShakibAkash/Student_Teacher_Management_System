@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Teachers</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SMS - Teacher</div>
+        <div class="nav-links">
+            <a href="/teacher/home">Home</a>
+            <a href="/teacher/students">Students</a>
+            <a href="/teacher/courses">Courses</a>
+            <a href="/teacher/departments">Departments</a>
+            <a href="/teacher/teachers">Teachers</a>
+            <a href="/teacher/profile">My Profile</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Teachers</h1>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="teacher : ${teachers}">
+                    <td th:text="${teacher.id}"></td>
+                    <td th:text="${teacher.fullName}"></td>
+                    <td th:text="${teacher.email}"></td>
+                    <td th:text="${teacher.phone}"></td>
+                    <td th:text="${teacher.department != null ? teacher.department.name : 'N/A'}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(teachers)}">
+                    <td colspan="5">No teachers found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

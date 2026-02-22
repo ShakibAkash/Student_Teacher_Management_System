@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Student Management System</div>
+        <div class="nav-links">
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-card">
+            <h2>Sign Up</h2>
+
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+            <form th:action="@{/signup}" th:object="${signupRequest}" method="post">
+                <div class="form-group">
+                    <label for="username">Username *</label>
+                    <input type="text" id="username" th:field="*{username}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" th:field="*{password}" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" th:field="*{fullName}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" th:field="*{phone}">
+                </div>
+                <div class="form-group">
+                    <label for="role">Role *</label>
+                    <select id="role" th:field="*{role}" required>
+                        <option value="">-- Select Role --</option>
+                        <option value="STUDENT">Student</option>
+                        <option value="TEACHER">Teacher</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="departmentId">Department</label>
+                    <select id="departmentId" th:field="*{departmentId}">
+                        <option value="">-- Select Department --</option>
+                        <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="form-footer">Already have an account? <a href="/login">Login</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Teacher Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SMS - Teacher</div>
+        <div class="nav-links">
+            <a href="/teacher/home">Home</a>
+            <a href="/teacher/students">Students</a>
+            <a href="/teacher/courses">Courses</a>
+            <a href="/teacher/departments">Departments</a>
+            <a href="/teacher/teachers">Teachers</a>
+            <a href="/teacher/profile">My Profile</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome, Teacher!</h1>
+        <p>Use the navigation bar above to manage students, courses, or edit your profile.</p>
+        <div class="card-grid">
+            <a href="/teacher/students" class="dash-card">
+                <h3>Students</h3>
+                <p>View and manage students</p>
+            </a>
+            <a href="/teacher/courses" class="dash-card">
+                <h3>Courses</h3>
+                <p>View and manage courses</p>
+            </a>
+            <a href="/teacher/departments" class="dash-card">
+                <h3>Departments</h3>
+                <p>View departments</p>
+            </a>
+            <a href="/teacher/teachers" class="dash-card">
+                <h3>Teachers</h3>
+                <p>View teachers</p>
+            </a>
+            <a href="/teacher/profile" class="dash-card">
+                <h3>My Profile</h3>
+                <p>View and edit your profile</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

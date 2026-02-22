@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Departments</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SMS - Student</div>
+        <div class="nav-links">
+            <a href="/student/home">Home</a>
+            <a href="/student/courses">Courses</a>
+            <a href="/student/departments">Departments</a>
+            <a href="/student/teachers">Teachers</a>
+            <a href="/student/profile">My Profile</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Departments</h1>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dept : ${departments}">
+                    <td th:text="${dept.id}"></td>
+                    <td th:text="${dept.name}"></td>
+                    <td th:text="${dept.description}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(departments)}">
+                    <td colspan="3">No departments found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

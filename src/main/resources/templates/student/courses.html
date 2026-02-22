@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Courses</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SMS - Student</div>
+        <div class="nav-links">
+            <a href="/student/home">Home</a>
+            <a href="/student/courses">Courses</a>
+            <a href="/student/departments">Departments</a>
+            <a href="/student/teachers">Teachers</a>
+            <a href="/student/profile">My Profile</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Courses</h1>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Credits</th>
+                    <th>Department</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.id}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.description}"></td>
+                    <td th:text="${course.credits}"></td>
+                    <td th:text="${course.department != null ? course.department.name : 'N/A'}"></td>
+                    <td th:text="${course.teacher != null ? course.teacher.fullName : 'N/A'}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(courses)}">
+                    <td colspan="6">No courses found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

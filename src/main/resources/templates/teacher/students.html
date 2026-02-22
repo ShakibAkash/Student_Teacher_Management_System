@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS - Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">SMS - Teacher</div>
+        <div class="nav-links">
+            <a href="/teacher/home">Home</a>
+            <a href="/teacher/students">Students</a>
+            <a href="/teacher/courses">Courses</a>
+            <a href="/teacher/departments">Departments</a>
+            <a href="/teacher/teachers">Teachers</a>
+            <a href="/teacher/profile">My Profile</a>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Students</h1>
+
+        <div th:if="${param.updated}" class="alert alert-success">Student updated successfully!</div>
+        <div th:if="${param.deleted}" class="alert alert-success">Student deleted successfully!</div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.username}"></td>
+                    <td th:text="${student.fullName}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.phone}"></td>
+                    <td th:text="${student.department != null ? student.department.name : 'N/A'}"></td>
+                    <td>
+                        <a th:href="@{/teacher/students/edit/{id}(id=${student.id})}" class="btn btn-sm">Edit</a>
+                        <form th:action="@{/teacher/students/delete/{id}(id=${student.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this student?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(students)}">
+                    <td colspan="7">No students found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
